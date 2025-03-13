@@ -45,7 +45,7 @@ jobs:
 
       # Passo 7: Fazer upload do artefato para a release
       - name: Upload artifact to release
-        uses: actions/upload-release-asset@v4
+        uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
