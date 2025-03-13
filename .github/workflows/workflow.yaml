@@ -20,6 +20,16 @@ jobs:
           npm install
           npm run build 
           npm run test
+
+      - name: Zip build directory
+        run: |
+          if [ -d "./build" ]; then
+            zip -r build.zip ./build
+            chmod 644 build.zip  # Permissões seguras
+          else
+            echo "Error: ./build directory not found!"
+            exit 1
+          fi
           
       - name: Create GitHub Release
         id: create-release
@@ -40,7 +50,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create-release.outputs.upload_url }}
-          asset_path: ./build
+          asset_path: ./build.zip
           asset_name: app-build.zip
           asset_content_type: application/zip
    
